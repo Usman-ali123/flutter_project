@@ -1,0 +1,111 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 4,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.teal,
+          title: Text('WhatsApp'),
+          centerTitle: false,
+          actions: [
+            Icon(Icons.search),
+            SizedBox(width: 12),
+            PopupMenuButton(
+              child: Icon(Icons.more_vert_outlined),
+              itemBuilder: (context) => [
+                PopupMenuItem(child: Text('New Group')),
+                PopupMenuItem(child: Text('Settings')),
+                PopupMenuItem(child: Text('Log Out')),
+              ],
+            ),
+          ],
+          bottom: TabBar(
+            tabs: [
+              Tab(child: Icon(Icons.camera_alt_outlined)),
+              Tab(child: Text('Chats')),
+              Tab(child: Text('Calls')),
+              Tab(child: Text('Status')),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            // Camera Tab
+            ListView.builder(
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: CircleAvatar(
+                    child: Icon(Icons.camera_alt, size: 16),
+                  ),
+                  title: Text('Camera'),
+                  subtitle: Text('Click to open camera'),
+                );
+              },
+            ),
+            // Chats Tab
+            ListView.builder(
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: CircleAvatar(
+                    child: Icon(Icons.account_circle_rounded),
+                  ),
+                  title: Text('Name'),
+                  subtitle: Text('Eccedentisiast'),
+                  trailing: Text('9:00 pm'),
+                );
+              },
+            ),
+            // Calls Tab
+            ListView.builder(
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: CircleAvatar(
+                    child: Icon(Icons.phone_outlined),
+                  ),
+                  title: Text('Mr Unknown'),
+                  subtitle: Text(index / 2 == 0 ? 'Incoming Call' : 'Outgoing Call'),
+                  trailing: Text(index / 2 == 0 ? 'Missed Call' : 'Received Call'),
+                );
+              },
+            ),
+            // Status Tab
+            ListView.builder(
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: CircleAvatar(
+                    child: Icon(Icons.account_circle, size: 13, color: Colors.blueGrey),
+                  ),
+                  title: Text(index / 2 == 0 ? 'Boy Status' : 'Girl Status'),
+                  subtitle: Text('Click to open status'),
+                  trailing: Text('00:00 am'),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
